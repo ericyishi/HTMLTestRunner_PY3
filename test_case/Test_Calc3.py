@@ -24,12 +24,12 @@ class TestCalc(unittest.TestCase):
 
     def test_divide(self):
         """计算器除法法模块3"""
-        self.assertEqual(self.cal.divide(6, 2), 3, 'test divide1 failed')
+        self.assertEqual(self.cal.divide(6, 0), 6, 'test divide1 failed')
         self.assertEqual(self.cal.divide(3, 2), 1.5, 'test divide2 failed')
 
     def test_multiple(self):
         """计算器乘法模块3"""
-        self.assertEqual(self.cal.multiple(6, 2), 13, 'test multiple1 failed')
+        self.assertEqual(self.cal.multiple(6, 2), 12, 'test multiple1 failed')
         self.assertEqual(self.cal.multiple(3, 2), 6, 'test multiple2 failed')
     def tearDown(self):
         print("测试结束")

@@ -25,7 +25,7 @@ class TestCalc(unittest.TestCase):
     def test_divide(self):
         """计算器除法法模块2"""
         self.assertEqual(self.cal.divide(6, 2), 3, 'test divide1 failed')
-        self.assertEqual(self.cal.divide(3, 2), 1, 'test divide2 failed')
+        self.assertEqual(self.cal.divide(8, 2), 4, 'test divide2 failed')
 
     def test_multiple(self):
         """计算器乘法模块2"""
