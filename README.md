@@ -9,5 +9,5 @@
 * 运行TestSuit.py文件，可以在当前文件夹生成一份报告testresult.html
 ![image](https://github.com/ericyishi/img-folder/blob/master/HtmlTestRunner/htmltestrunner.png)
 ### echart分支
-![image](https://github.com/ericyishi/img-folder/blob/master/HtmlTestRunner/htmltestrunner.png)
+![image](https://github.com/ericyishi/img-folder/blob/master/HtmlTestRunner/HTMLTestRunner_echart.png)
 ![image](https://github.com/ericyishi/img-folder/blob/master/HtmlTestRunner/htmltestrunner.gif)
