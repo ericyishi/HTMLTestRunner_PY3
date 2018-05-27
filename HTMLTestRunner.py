@@ -191,6 +191,7 @@ class Template_mixin(object):
     <meta name="generator" content="%(generator)s"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+
     %(stylesheet)s
 </head>
 <body>
@@ -292,7 +293,7 @@ function showOutput(id, name) {
 %(heading)s
 %(report)s
 %(ending)s
-
+<script src="https://cdn.bootcss.com/echarts/4.1.0/echarts-en.common.min.js"></script>
 </body>
 </html>
 """
