@@ -1,5 +1,4 @@
 # HTMLTestRunner_PY3
-* HTMLTestRunner with bootrstrap
 ### 概述
 * 新建了一个echart分支，增加echart图表,并对原来的样式进一步美化
 * 2018年5月27日-本来直接想用乙醇大神的，但是不知道为何无法正常运行。所以就在此版本上作了精简，只保留了css相关的部分
