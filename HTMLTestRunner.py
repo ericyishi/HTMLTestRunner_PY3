@@ -67,7 +67,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 __author__ = "Wai Yip Tung"
 __version__ = "0.8.2"
 
-
 """
 Change History
 
@@ -111,6 +110,7 @@ from xml.sax import saxutils
 
 class OutputRedirector(object):
     """ Wrapper to redirect stdout or stderr """
+
     def __init__(self, fp):
         self.fp = fp
 
@@ -123,9 +123,9 @@ class OutputRedirector(object):
     def flush(self):
         self.fp.flush()
 
+
 stdout_redirector = OutputRedirector(sys.stdout)
 stderr_redirector = OutputRedirector(sys.stderr)
-
 
 
 # ----------------------------------------------------------------------
@@ -153,7 +153,7 @@ class Template_mixin(object):
     |                        |
     |   HEADING              |
     |   +----------------+   |
-    |   |                |   |
+    |   |     echart     |   |
     |   +----------------+   |
     |                        |
     |   REPORT               |
@@ -172,9 +172,9 @@ class Template_mixin(object):
     """
 
     STATUS = {
-    0: 'pass',
-    1: 'fail',
-    2: 'error',
+        0: 'pass',
+        1: 'fail',
+        2: 'error',
     }
 
     DEFAULT_TITLE = 'Unit Test Report'
@@ -191,6 +191,7 @@ class Template_mixin(object):
     <meta name="generator" content="%(generator)s"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+
     %(stylesheet)s
 </head>
 <body>
@@ -292,11 +293,13 @@ function showOutput(id, name) {
 %(heading)s
 %(report)s
 %(ending)s
+<script src="https://cdn.bootcss.com/echarts/4.1.0/echarts-en.common.min.js"></script>
+%(myechart)s
 
 </body>
 </html>
 """
-    # variables: (title, generator, stylesheet, heading, report, ending)
+    # variables: (title, generator, stylesheet, heading, report, ending,myechart)
 
 
     # ------------------------------------------------------------------------
@@ -307,7 +310,9 @@ function showOutput(id, name) {
 
     STYLESHEET_TMPL = """
 <style type="text/css" media="screen">
-
+body{
+margin:10px 20px!important;
+}
 
 /* -- css div popup ------------------------------------------------------------------------ */
 
@@ -347,8 +352,6 @@ function showOutput(id, name) {
 </style>
 """
 
-
-
     # ------------------------------------------------------------------------
     # Heading
     #
@@ -356,15 +359,14 @@ function showOutput(id, name) {
     HEADING_TMPL = """<div class='heading'>
 <h1>%(title)s</h1>
 %(parameters)s
-<p class='description'>%(description)s</p>
+<div style="float: left;width:50%%;"><p class='description'>%(description)s</p></div>
+    <div id="chart" style="width:50%%;height:400px;float:left;margin-top:-5%%"></div>
 </div>
 
-""" # variables: (title, parameters, description)
+"""  # variables: (title, parameters, description)
 
     HEADING_ATTRIBUTE_TMPL = """<p class='attribute'><strong>%(name)s:</strong> %(value)s</p>
-""" # variables: (name, value)
-
-
+"""  # variables: (name, value)
 
     # ------------------------------------------------------------------------
     # Report
@@ -372,11 +374,11 @@ function showOutput(id, name) {
 
     REPORT_TMPL = """
 <p id='show_detail_line'>
-<span class="label label-primary" onclick="showCase(0)">Summary</span>
-<span class="label label-danger" onclick="showCase(1)">Failed</span>
-<span class="label label-default" onclick="showCase(2)">All</span>
+<btn class="btn btn-primary" onclick="showCase(0)">摘要</btn>
+<btn class="btn btn-danger" onclick="showCase(1)">失败</btn>
+<btn class="btn btn-default" onclick="showCase(2)">全部</btn>
 </p>
-<table id='result_table' class="table">
+<table id='result_table' class="table table-striped">
  <thead>
         <tr id='header_row'>
             <th>Test Group/Test case</td>
@@ -394,14 +396,14 @@ function showOutput(id, name) {
         <tr id='total_row'>
             <td>Total</td>
             <td>%(count)s</td>
-            <td class="text text-success">%(Pass)s</td>
+            <td class="text text-primary">%(Pass)s</td>
             <td class="text text-danger">%(fail)s</td>
             <td class="text text-warning">%(error)s</td>
             <td>&nbsp;</td>
         </tr>
     </tfoot>
 </table>
-""" # variables: (test_list, count, Pass, fail, error)
+"""  # variables: (test_list, count, Pass, fail, error)
 
     REPORT_CLASS_TMPL = r"""
 <tr class='%(style)s'>
@@ -410,10 +412,9 @@ function showOutput(id, name) {
     <td>%(Pass)s</td>
     <td>%(fail)s</td>
     <td>%(error)s</td>
-    <td><a class="btn btn-xs btn-primary"href="javascript:showClassDetail('%(cid)s',%(count)s)">Detail</a></td>
+    <td><a class="btn btn-xs btn-info"href="javascript:showClassDetail('%(cid)s',%(count)s)">Detail</a></td>
 </tr>
-""" # variables: (style, desc, count, Pass, fail, error, cid)
-
+"""  # variables: (style, desc, count, Pass, fail, error, cid)
 
     REPORT_TEST_WITH_OUTPUT_TMPL = r"""
 <tr id='%(tid)s' class='%(Class)s'>
@@ -421,7 +422,7 @@ function showOutput(id, name) {
     <td colspan='5' align='center'>
 
     <!--css div popup start-->
-    <a class="popup_link btn btn-xs btn-default" onfocus='this.blur();' href="javascript:showTestDetail('div_%(tid)s')" >
+    <a class="popup_link btn btn-xs btn-danger" onfocus='this.blur();' href="javascript:showTestDetail('div_%(tid)s')" >
         %(status)s</a>
 
     <div id='div_%(tid)s' class="popup_window">
@@ -437,22 +438,18 @@ function showOutput(id, name) {
 
     </td>
 </tr>
-""" # variables: (tid, Class, style, desc, status)
-
+"""  # variables: (tid, Class, style, desc, status)
 
     REPORT_TEST_NO_OUTPUT_TMPL = r"""
 <tr id='%(tid)s' class='%(Class)s'>
     <td class='%(style)s'><div class='testcase'>%(desc)s</div></td>
     <td colspan='5' align='center'>%(status)s</td>
 </tr>
-""" # variables: (tid, Class, style, desc, status)
-
+"""  # variables: (tid, Class, style, desc, status)
 
     REPORT_TEST_OUTPUT_TMPL = r"""
 %(id)s: %(output)s
-""" # variables: (id, output)
-
-
+"""  # variables: (id, output)
 
     # ------------------------------------------------------------------------
     # ENDING
@@ -460,10 +457,72 @@ function showOutput(id, name) {
 
     ENDING_TMPL = """<div id='ending'>&nbsp;</div>"""
 
+    ECHARTS_SCRIPT = """
+    <script type="text/javascript">
+        // 初始化echarts实例
+        var myChart = echarts.init(document.getElementById('chart'));
+
+        // 指定图表的配置项和数据
+        var option = {
+            title : {
+                text: '测试执行情况结果',
+                x:'center'
+            },
+            tooltip : {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%%)"
+            },
+            color: ['#428bca','#d9534f', '#f0ad4e'],
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+                data: ['通过','失败','错误']
+            },
+            series : [
+                {
+                    name: '测试执行情况结果',
+                    type: 'pie',
+                    radius: ['50%%', '70%%'],
+                    avoidLabelOverlap: false,
+                    label: {
+                        normal: {
+                            show: false,
+                            position: 'center'
+                        },
+                        emphasis: {
+                            show: true,
+                            textStyle: {
+                                fontSize: '30',
+                                fontWeight: 'bold'
+                            }
+                        }
+                    },
+                    labelLine: {
+                        normal: {
+                            show: false
+                        }
+                    },
+                    data:[
+                        {value:%(Pass)s, name:'通过'},
+                        {value:%(fail)s, name:'失败'},
+                        {value:%(error)s, name:'错误'}
+                    ]
+
+                }
+            ]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
+    """  # variables: (Pass, fail, error)
+
+
 # -------------------- The end of the Template class -------------------
 
 
 TestResult = unittest.TestResult
+
 
 class _TestResult(TestResult):
     # note: _TestResult is a pure representation of results.
@@ -487,7 +546,6 @@ class _TestResult(TestResult):
         # )
         self.result = []
 
-
     def startTest(self, test):
         TestResult.startTest(self, test)
         # just one buffer for both stdout and stderr
@@ -498,7 +556,6 @@ class _TestResult(TestResult):
         self.stderr0 = sys.stderr
         sys.stdout = stdout_redirector
         sys.stderr = stderr_redirector
-
 
     def complete_output(self):
         """
@@ -512,13 +569,11 @@ class _TestResult(TestResult):
             self.stderr0 = None
         return self.outputBuffer.getvalue()
 
-
     def stopTest(self, test):
         # Usually one of addSuccess, addError or addFailure would have been called.
         # But there are some path in unittest that would bypass this.
         # We must disconnect stdout in stopTest(), which is guaranteed to be called.
         self.complete_output()
-
 
     def addSuccess(self, test):
         self.success_count += 1
@@ -562,6 +617,7 @@ class _TestResult(TestResult):
 class HTMLTestRunner(Template_mixin):
     """
     """
+
     def __init__(self, stream=sys.stdout, verbosity=1, title=None, description=None):
         self.stream = stream
         self.verbosity = verbosity
@@ -576,7 +632,6 @@ class HTMLTestRunner(Template_mixin):
 
         self.startTime = datetime.datetime.now()
 
-
     def run(self, test):
         "Run the given test case or test suite."
         result = _TestResult(self.verbosity)
@@ -584,24 +639,22 @@ class HTMLTestRunner(Template_mixin):
         self.stopTime = datetime.datetime.now()
         self.generateReport(test, result)
         # print >> sys.stderr, '\nTime Elapsed: %s' % (self.stopTime-self.startTime)
-        print(sys.stderr, '\nTime Elapsed: %s' % (self.stopTime-self.startTime))
+        print(sys.stderr, '\nTime Elapsed: %s' % (self.stopTime - self.startTime))
         return result
-
 
     def sortResult(self, result_list):
         # unittest does not seems to run in any particular order.
         # Here at least we want to group them together by class.
         rmap = {}
         classes = []
-        for n,t,o,e in result_list:
+        for n, t, o, e in result_list:
             cls = t.__class__
             if not cls in rmap:
                 rmap[cls] = []
                 classes.append(cls)
-            rmap[cls].append((n,t,o,e))
+            rmap[cls].append((n, t, o, e))
         r = [(cls, rmap[cls]) for cls in classes]
         return r
-
 
     def getReportAttributes(self, result):
         """
@@ -611,9 +664,12 @@ class HTMLTestRunner(Template_mixin):
         startTime = str(self.startTime)[:19]
         duration = str(self.stopTime - self.startTime)
         status = []
-        if result.success_count: status.append('<span class="text text-success">Pass <strong>%s</strong></span>'    % result.success_count)
-        if result.failure_count: status.append('<span class="text text-danger">Failure <strong>%s</strong></span>' % result.failure_count)
-        if result.error_count:status.append('<span class="text text-warning">Error <strong>%s</strong></span>'   % result.error_count)
+        if result.success_count: status.append(
+            '<span class="text text-primary">Pass <strong>%s</strong></span>' % result.success_count)
+        if result.failure_count: status.append(
+            '<span class="text text-danger">Failure <strong>%s</strong></span>' % result.failure_count)
+        if result.error_count: status.append(
+            '<span class="text text-warning">Error <strong>%s</strong></span>' % result.error_count)
         if status:
             status = ' '.join(status)
         else:
@@ -624,7 +680,6 @@ class HTMLTestRunner(Template_mixin):
             ('Status', status),
         ]
 
-
     def generateReport(self, test, result):
         report_attrs = self.getReportAttributes(result)
         generator = 'HTMLTestRunner %s' % __version__
@@ -632,38 +687,37 @@ class HTMLTestRunner(Template_mixin):
         heading = self._generate_heading(report_attrs)
         report = self._generate_report(result)
         ending = self._generate_ending()
+        chart = self._generate_chart(result)  # 将echart数据输出在报告中
         output = self.HTML_TMPL % dict(
-            title = saxutils.escape(self.title),
-            generator = generator,
-            stylesheet = stylesheet,
-            heading = heading,
-            report = report,
-            ending = ending,
+                title=saxutils.escape(self.title),
+                generator=generator,
+                stylesheet=stylesheet,
+                heading=heading,
+                report=report,
+                ending=ending,
+                myechart=chart  # 将生成的数据变量myechart，用于页面填充
         )
         self.stream.write(output.encode('utf8'))
 
-
     def _generate_stylesheet(self):
         return self.STYLESHEET_TMPL
-
 
     def _generate_heading(self, report_attrs):
         a_lines = []
         for name, value in report_attrs:
             line = self.HEADING_ATTRIBUTE_TMPL % dict(
                     # name = saxutils.escape(name),
-                    # value = saxutils.escape(value),
-                    name = name,
-                    value = value,
-                )
+                    # value = saxutils.escape(value),# 不使用默认的saxutils方法，因为会将字符串的引号转化为实体，页面输出看到的就是html的字符串格式
+                    name=name,
+                    value=value,
+            )
             a_lines.append(line)
         heading = self.HEADING_TMPL % dict(
-            title = saxutils.escape(self.title),
-            parameters = ''.join(a_lines),
-            description = saxutils.escape(self.description),
+                title=saxutils.escape(self.title),
+                parameters=''.join(a_lines),
+                description=saxutils.escape(self.description),
         )
         return heading
-
 
     def _generate_report(self, result):
         rows = []
@@ -671,10 +725,13 @@ class HTMLTestRunner(Template_mixin):
         for cid, (cls, cls_results) in enumerate(sortedResult):
             # subtotal for a class
             np = nf = ne = 0
-            for n,t,o,e in cls_results:
-                if n == 0: np += 1
-                elif n == 1: nf += 1
-                else: ne += 1
+            for n, t, o, e in cls_results:
+                if n == 0:
+                    np += 1
+                elif n == 1:
+                    nf += 1
+                else:
+                    ne += 1
 
             # format class description
             if cls.__module__ == "__main__":
@@ -685,47 +742,54 @@ class HTMLTestRunner(Template_mixin):
             desc = doc and '%s: %s' % (name, doc) or name
 
             row = self.REPORT_CLASS_TMPL % dict(
-                 style = ne > 0 and 'text text-warning' or nf > 0 and 'text text-danger' or 'text text-success',
-                desc = desc,
-                count = np+nf+ne,
-                Pass = np,
-                fail = nf,
-                error = ne,
-                cid = 'c%s' % (cid+1),
+                    style=ne > 0 and 'text text-warning' or nf > 0 and 'text text-danger' or 'text text-primary',
+                    desc=desc,
+                    count=np + nf + ne,
+                    Pass=np,
+                    fail=nf,
+                    error=ne,
+                    cid='c%s' % (cid + 1),
             )
             rows.append(row)
 
-            for tid, (n,t,o,e) in enumerate(cls_results):
+            for tid, (n, t, o, e) in enumerate(cls_results):
                 self._generate_report_test(rows, cid, tid, n, t, o, e)
 
         report = self.REPORT_TMPL % dict(
-            test_list = ''.join(rows),
-            count = str(result.success_count+result.failure_count+result.error_count),
-            Pass = str(result.success_count),
-            fail = str(result.failure_count),
-            error = str(result.error_count),
+                test_list=''.join(rows),
+                count=str(result.success_count + result.failure_count + result.error_count),
+                Pass=str(result.success_count),
+                fail=str(result.failure_count),
+                error=str(result.error_count),
         )
         return report
 
+    def _generate_chart(self, result):  # 关联echart
+        chart = self.ECHARTS_SCRIPT % dict(
+                Pass=str(result.success_count),
+                fail=str(result.failure_count),
+                error=str(result.error_count),
+        )
+        return chart
 
     def _generate_report_test(self, rows, cid, tid, n, t, o, e):
         # e.g. 'pt1.1', 'ft1.1', etc
         has_output = bool(o or e)
-        tid = (n == 0 and 'p' or 'f') + 't%s.%s' % (cid+1,tid+1)
+        tid = (n == 0 and 'p' or 'f') + 't%s.%s' % (cid + 1, tid + 1)
         name = t.id().split('.')[-1]
         doc = t.shortDescription() or ""
         desc = doc and ('%s: %s' % (name, doc)) or name
         tmpl = has_output and self.REPORT_TEST_WITH_OUTPUT_TMPL or self.REPORT_TEST_NO_OUTPUT_TMPL
 
         # o and e should be byte string because they are collected from stdout and stderr?
-        if isinstance(o,str):
+        if isinstance(o, str):
             # TODO: some problem with 'string_escape': it escape \n and mess up formating
             # uo = unicode(o.encode('string_escape'))
             # uo = o.decode('latin-1')
             uo = e
         else:
             uo = o
-        if isinstance(e,str):
+        if isinstance(e, str):
             # TODO: some problem with 'string_escape': it escape \n and mess up formating
             # ue = unicode(e.encode('string_escape'))
             # ue = e.decode('latin-1')
@@ -734,17 +798,17 @@ class HTMLTestRunner(Template_mixin):
             ue = e
 
         script = self.REPORT_TEST_OUTPUT_TMPL % dict(
-            id = tid,
-            output = saxutils.escape(str(uo)+ue),
+                id=tid,
+                output=saxutils.escape(str(uo) + ue),
         )
 
         row = tmpl % dict(
-            tid = tid,
-			Class = (n == 0 and 'hiddenRow' or 'text text-success'),
-			style = n == 2 and 'text text-warning' or (n == 1 and 'text text-danger' or 'text text-success'),
-            desc = desc,
-            script = script,
-            status = self.STATUS[n],
+                tid=tid,
+                Class=(n == 0 and 'hiddenRow' or 'text text-primary'),
+                style=n == 2 and 'text text-warning' or (n == 1 and 'text text-danger' or 'text text-primary'),
+                desc=desc,
+                script=script,
+                status=self.STATUS[n],
         )
         rows.append(row)
         if not has_output:
@@ -766,6 +830,7 @@ class TestProgram(unittest.TestProgram):
     A variation of the unittest.TestProgram. Please refer to the base
     class for command line parameters.
     """
+
     def runTests(self):
         # Pick HTMLTestRunner as the default test runner.
         # base class's testRunner parameter is not useful because it means
@@ -773,6 +838,7 @@ class TestProgram(unittest.TestProgram):
         if self.testRunner is None:
             self.testRunner = HTMLTestRunner(verbosity=self.verbosity)
         unittest.TestProgram.runTests(self)
+
 
 main = TestProgram
 

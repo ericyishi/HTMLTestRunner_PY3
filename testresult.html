@@ -6,9 +6,12 @@
     <meta name="generator" content="HTMLTestRunner 0.8.2"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+
     
 <style type="text/css" media="screen">
-
+body{
+margin:10px 20px!important;
+}
 
 /* -- css div popup ------------------------------------------------------------------------ */
 
@@ -146,21 +149,22 @@ function showOutput(id, name) {
 
 <div class='heading'>
 <h1>测试报告</h1>
-<p class='attribute'><strong>Start Time:</strong> 2018-05-27 11:22:45</p>
-<p class='attribute'><strong>Duration:</strong> 0:00:00.006000</p>
-<p class='attribute'><strong>Status:</strong> <span class="text text-success">Pass <strong>9</strong></span> <span class="text text-danger">Failure <strong>3</strong></span></p>
+<p class='attribute'><strong>Start Time:</strong> 2018-05-27 14:07:53</p>
+<p class='attribute'><strong>Duration:</strong> 0:00:00.005000</p>
+<p class='attribute'><strong>Status:</strong> <span class="text text-primary">Pass <strong>10</strong></span> <span class="text text-danger">Failure <strong>1</strong></span> <span class="text text-warning">Error <strong>1</strong></span></p>
 
-<p class='description'>计算器demo</p>
+<div style="float: left;width:50%;"><p class='description'>计算器demo</p></div>
+    <div id="chart" style="width:50%;height:400px;float:left;margin-top:-5%"></div>
 </div>
 
 
 
 <p id='show_detail_line'>
-<span class="label label-primary" onclick="showCase(0)">Summary</span>
-<span class="label label-danger" onclick="showCase(1)">Failed</span>
-<span class="label label-default" onclick="showCase(2)">All</span>
+<btn class="btn btn-primary" onclick="showCase(0)">摘要</btn>
+<btn class="btn btn-danger" onclick="showCase(1)">失败</btn>
+<btn class="btn btn-default" onclick="showCase(2)">全部</btn>
 </p>
-<table id='result_table' class="table">
+<table id='result_table' class="table table-striped">
  <thead>
         <tr id='header_row'>
             <th>Test Group/Test case</td>
@@ -179,15 +183,15 @@ function showOutput(id, name) {
     <td>3</td>
     <td>1</td>
     <td>0</td>
-    <td><a class="btn btn-xs btn-primary"href="javascript:showClassDetail('c1',4)">Detail</a></td>
+    <td><a class="btn btn-xs btn-info"href="javascript:showClassDetail('c1',4)">Detail</a></td>
 </tr>
 
 <tr id='pt1.1' class='hiddenRow'>
-    <td class='text text-success'><div class='testcase'>test_add: 计算器加法模块</div></td>
+    <td class='text text-primary'><div class='testcase'>test_add: 计算器加法模块</div></td>
     <td colspan='5' align='center'>
 
     <!--css div popup start-->
-    <a class="popup_link btn btn-xs btn-default" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.1')" >
+    <a class="popup_link btn btn-xs btn-danger" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.1')" >
         pass</a>
 
     <div id='div_pt1.1' class="popup_window">
@@ -207,11 +211,11 @@ pt1.1:
 </tr>
 
 <tr id='pt1.2' class='hiddenRow'>
-    <td class='text text-success'><div class='testcase'>test_divide: 计算器除法法模块</div></td>
+    <td class='text text-primary'><div class='testcase'>test_divide: 计算器除法法模块</div></td>
     <td colspan='5' align='center'>
 
     <!--css div popup start-->
-    <a class="popup_link btn btn-xs btn-default" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.2')" >
+    <a class="popup_link btn btn-xs btn-danger" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.2')" >
         pass</a>
 
     <div id='div_pt1.2' class="popup_window">
@@ -230,12 +234,12 @@ pt1.2:
     </td>
 </tr>
 
-<tr id='ft1.3' class='text text-success'>
+<tr id='ft1.3' class='text text-primary'>
     <td class='text text-danger'><div class='testcase'>test_minus: 计算器减法模块</div></td>
     <td colspan='5' align='center'>
 
     <!--css div popup start-->
-    <a class="popup_link btn btn-xs btn-default" onfocus='this.blur();' href="javascript:showTestDetail('div_ft1.3')" >
+    <a class="popup_link btn btn-xs btn-danger" onfocus='this.blur();' href="javascript:showTestDetail('div_ft1.3')" >
         fail</a>
 
     <div id='div_ft1.3' class="popup_window">
@@ -246,11 +250,11 @@ pt1.2:
         <pre>
         
 ft1.3: Traceback (most recent call last):
-  File "D:\HTMLTestRunner_PY3\test_case\Test_Calc.py", line 21, in test_minus
+  File "D:\yis_python\unittest\test_case\Test_Calc.py", line 21, in test_minus
     self.assertEqual(self.cal.minus(1, 2), 5, 'test minus1 failed')
 AssertionError: -1 != 5 : test minus1 failed
 Traceback (most recent call last):
-  File "D:\HTMLTestRunner_PY3\test_case\Test_Calc.py", line 21, in test_minus
+  File "D:\yis_python\unittest\test_case\Test_Calc.py", line 21, in test_minus
     self.assertEqual(self.cal.minus(1, 2), 5, 'test minus1 failed')
 AssertionError: -1 != 5 : test minus1 failed
 
@@ -263,11 +267,11 @@ AssertionError: -1 != 5 : test minus1 failed
 </tr>
 
 <tr id='pt1.4' class='hiddenRow'>
-    <td class='text text-success'><div class='testcase'>test_multiple: 计算器乘法模块</div></td>
+    <td class='text text-primary'><div class='testcase'>test_multiple: 计算器乘法模块</div></td>
     <td colspan='5' align='center'>
 
     <!--css div popup start-->
-    <a class="popup_link btn btn-xs btn-default" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.4')" >
+    <a class="popup_link btn btn-xs btn-danger" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.4')" >
         pass</a>
 
     <div id='div_pt1.4' class="popup_window">
@@ -286,21 +290,21 @@ pt1.4:
     </td>
 </tr>
 
-<tr class='text text-danger'>
+<tr class='text text-primary'>
     <td>Test_Calc2.TestCalc: 计算器模块2</td>
     <td>4</td>
-    <td>3</td>
-    <td>1</td>
+    <td>4</td>
     <td>0</td>
-    <td><a class="btn btn-xs btn-primary"href="javascript:showClassDetail('c2',4)">Detail</a></td>
+    <td>0</td>
+    <td><a class="btn btn-xs btn-info"href="javascript:showClassDetail('c2',4)">Detail</a></td>
 </tr>
 
 <tr id='pt2.1' class='hiddenRow'>
-    <td class='text text-success'><div class='testcase'>test_add: 计算器加法模块2</div></td>
+    <td class='text text-primary'><div class='testcase'>test_add: 计算器加法模块2</div></td>
     <td colspan='5' align='center'>
 
     <!--css div popup start-->
-    <a class="popup_link btn btn-xs btn-default" onfocus='this.blur();' href="javascript:showTestDetail('div_pt2.1')" >
+    <a class="popup_link btn btn-xs btn-danger" onfocus='this.blur();' href="javascript:showTestDetail('div_pt2.1')" >
         pass</a>
 
     <div id='div_pt2.1' class="popup_window">
@@ -319,30 +323,22 @@ pt2.1:
     </td>
 </tr>
 
-<tr id='ft2.2' class='text text-success'>
-    <td class='text text-danger'><div class='testcase'>test_divide: 计算器除法法模块2</div></td>
+<tr id='pt2.2' class='hiddenRow'>
+    <td class='text text-primary'><div class='testcase'>test_divide: 计算器除法法模块2</div></td>
     <td colspan='5' align='center'>
 
     <!--css div popup start-->
-    <a class="popup_link btn btn-xs btn-default" onfocus='this.blur();' href="javascript:showTestDetail('div_ft2.2')" >
-        fail</a>
+    <a class="popup_link btn btn-xs btn-danger" onfocus='this.blur();' href="javascript:showTestDetail('div_pt2.2')" >
+        pass</a>
 
-    <div id='div_ft2.2' class="popup_window">
+    <div id='div_pt2.2' class="popup_window">
         <div style='text-align: right;cursor:pointer'>
-        <a onfocus='this.blur();' onclick="document.getElementById('div_ft2.2').style.display = 'none' " >
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt2.2').style.display = 'none' " >
            [x]</a>
         </div>
         <pre>
         
-ft2.2: Traceback (most recent call last):
-  File "D:\HTMLTestRunner_PY3\test_case\Test_Calc2.py", line 28, in test_divide
-    self.assertEqual(self.cal.divide(3, 2), 1, 'test divide2 failed')
-AssertionError: 1.5 != 1 : test divide2 failed
-Traceback (most recent call last):
-  File "D:\HTMLTestRunner_PY3\test_case\Test_Calc2.py", line 28, in test_divide
-    self.assertEqual(self.cal.divide(3, 2), 1, 'test divide2 failed')
-AssertionError: 1.5 != 1 : test divide2 failed
-
+pt2.2: 
 
         </pre>
     </div>
@@ -352,11 +348,11 @@ AssertionError: 1.5 != 1 : test divide2 failed
 </tr>
 
 <tr id='pt2.3' class='hiddenRow'>
-    <td class='text text-success'><div class='testcase'>test_minus: 计算器减法模块2</div></td>
+    <td class='text text-primary'><div class='testcase'>test_minus: 计算器减法模块2</div></td>
     <td colspan='5' align='center'>
 
     <!--css div popup start-->
-    <a class="popup_link btn btn-xs btn-default" onfocus='this.blur();' href="javascript:showTestDetail('div_pt2.3')" >
+    <a class="popup_link btn btn-xs btn-danger" onfocus='this.blur();' href="javascript:showTestDetail('div_pt2.3')" >
         pass</a>
 
     <div id='div_pt2.3' class="popup_window">
@@ -376,11 +372,11 @@ pt2.3:
 </tr>
 
 <tr id='pt2.4' class='hiddenRow'>
-    <td class='text text-success'><div class='testcase'>test_multiple: 计算器乘法模块2</div></td>
+    <td class='text text-primary'><div class='testcase'>test_multiple: 计算器乘法模块2</div></td>
     <td colspan='5' align='center'>
 
     <!--css div popup start-->
-    <a class="popup_link btn btn-xs btn-default" onfocus='this.blur();' href="javascript:showTestDetail('div_pt2.4')" >
+    <a class="popup_link btn btn-xs btn-danger" onfocus='this.blur();' href="javascript:showTestDetail('div_pt2.4')" >
         pass</a>
 
     <div id='div_pt2.4' class="popup_window">
@@ -399,21 +395,21 @@ pt2.4:
     </td>
 </tr>
 
-<tr class='text text-danger'>
+<tr class='text text-warning'>
     <td>Test_Calc3.TestCalc: 计算器模块3</td>
     <td>4</td>
     <td>3</td>
-    <td>1</td>
     <td>0</td>
-    <td><a class="btn btn-xs btn-primary"href="javascript:showClassDetail('c3',4)">Detail</a></td>
+    <td>1</td>
+    <td><a class="btn btn-xs btn-info"href="javascript:showClassDetail('c3',4)">Detail</a></td>
 </tr>
 
 <tr id='pt3.1' class='hiddenRow'>
-    <td class='text text-success'><div class='testcase'>test_add: 计算器加法模块3</div></td>
+    <td class='text text-primary'><div class='testcase'>test_add: 计算器加法模块3</div></td>
     <td colspan='5' align='center'>
 
     <!--css div popup start-->
-    <a class="popup_link btn btn-xs btn-default" onfocus='this.blur();' href="javascript:showTestDetail('div_pt3.1')" >
+    <a class="popup_link btn btn-xs btn-danger" onfocus='this.blur();' href="javascript:showTestDetail('div_pt3.1')" >
         pass</a>
 
     <div id='div_pt3.1' class="popup_window">
@@ -432,22 +428,34 @@ pt3.1:
     </td>
 </tr>
 
-<tr id='pt3.2' class='hiddenRow'>
-    <td class='text text-success'><div class='testcase'>test_divide: 计算器除法法模块3</div></td>
+<tr id='ft3.2' class='text text-primary'>
+    <td class='text text-warning'><div class='testcase'>test_divide: 计算器除法法模块3</div></td>
     <td colspan='5' align='center'>
 
     <!--css div popup start-->
-    <a class="popup_link btn btn-xs btn-default" onfocus='this.blur();' href="javascript:showTestDetail('div_pt3.2')" >
-        pass</a>
+    <a class="popup_link btn btn-xs btn-danger" onfocus='this.blur();' href="javascript:showTestDetail('div_ft3.2')" >
+        error</a>
 
-    <div id='div_pt3.2' class="popup_window">
+    <div id='div_ft3.2' class="popup_window">
         <div style='text-align: right;cursor:pointer'>
-        <a onfocus='this.blur();' onclick="document.getElementById('div_pt3.2').style.display = 'none' " >
+        <a onfocus='this.blur();' onclick="document.getElementById('div_ft3.2').style.display = 'none' " >
            [x]</a>
         </div>
         <pre>
         
-pt3.2: 
+ft3.2: Traceback (most recent call last):
+  File "D:\yis_python\unittest\test_case\Test_Calc3.py", line 27, in test_divide
+    self.assertEqual(self.cal.divide(6, 0), 6, 'test divide1 failed')
+  File "D:\yis_python\unittest\Calc.py", line 9, in divide
+    return a/b
+ZeroDivisionError: division by zero
+Traceback (most recent call last):
+  File "D:\yis_python\unittest\test_case\Test_Calc3.py", line 27, in test_divide
+    self.assertEqual(self.cal.divide(6, 0), 6, 'test divide1 failed')
+  File "D:\yis_python\unittest\Calc.py", line 9, in divide
+    return a/b
+ZeroDivisionError: division by zero
+
 
         </pre>
     </div>
@@ -457,11 +465,11 @@ pt3.2:
 </tr>
 
 <tr id='pt3.3' class='hiddenRow'>
-    <td class='text text-success'><div class='testcase'>test_minus: 计算器减法模块3</div></td>
+    <td class='text text-primary'><div class='testcase'>test_minus: 计算器减法模块3</div></td>
     <td colspan='5' align='center'>
 
     <!--css div popup start-->
-    <a class="popup_link btn btn-xs btn-default" onfocus='this.blur();' href="javascript:showTestDetail('div_pt3.3')" >
+    <a class="popup_link btn btn-xs btn-danger" onfocus='this.blur();' href="javascript:showTestDetail('div_pt3.3')" >
         pass</a>
 
     <div id='div_pt3.3' class="popup_window">
@@ -480,30 +488,22 @@ pt3.3:
     </td>
 </tr>
 
-<tr id='ft3.4' class='text text-success'>
-    <td class='text text-danger'><div class='testcase'>test_multiple: 计算器乘法模块3</div></td>
+<tr id='pt3.4' class='hiddenRow'>
+    <td class='text text-primary'><div class='testcase'>test_multiple: 计算器乘法模块3</div></td>
     <td colspan='5' align='center'>
 
     <!--css div popup start-->
-    <a class="popup_link btn btn-xs btn-default" onfocus='this.blur();' href="javascript:showTestDetail('div_ft3.4')" >
-        fail</a>
+    <a class="popup_link btn btn-xs btn-danger" onfocus='this.blur();' href="javascript:showTestDetail('div_pt3.4')" >
+        pass</a>
 
-    <div id='div_ft3.4' class="popup_window">
+    <div id='div_pt3.4' class="popup_window">
         <div style='text-align: right;cursor:pointer'>
-        <a onfocus='this.blur();' onclick="document.getElementById('div_ft3.4').style.display = 'none' " >
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt3.4').style.display = 'none' " >
            [x]</a>
         </div>
         <pre>
         
-ft3.4: Traceback (most recent call last):
-  File "D:\HTMLTestRunner_PY3\test_case\Test_Calc3.py", line 32, in test_multiple
-    self.assertEqual(self.cal.multiple(6, 2), 13, 'test multiple1 failed')
-AssertionError: 12 != 13 : test multiple1 failed
-Traceback (most recent call last):
-  File "D:\HTMLTestRunner_PY3\test_case\Test_Calc3.py", line 32, in test_multiple
-    self.assertEqual(self.cal.multiple(6, 2), 13, 'test multiple1 failed')
-AssertionError: 12 != 13 : test multiple1 failed
-
+pt3.4: 
 
         </pre>
     </div>
@@ -517,15 +517,75 @@ AssertionError: 12 != 13 : test multiple1 failed
         <tr id='total_row'>
             <td>Total</td>
             <td>12</td>
-            <td class="text text-success">9</td>
-            <td class="text text-danger">3</td>
-            <td class="text text-warning">0</td>
+            <td class="text text-primary">10</td>
+            <td class="text text-danger">1</td>
+            <td class="text text-warning">1</td>
             <td>&nbsp;</td>
         </tr>
     </tfoot>
 </table>
 
 <div id='ending'>&nbsp;</div>
+<script src="https://cdn.bootcss.com/echarts/4.1.0/echarts-en.common.min.js"></script>
+
+    <script type="text/javascript">
+        // 初始化echarts实例
+        var myChart = echarts.init(document.getElementById('chart'));
+
+        // 指定图表的配置项和数据
+        var option = {
+            title : {
+                text: '测试执行情况结果',
+                x:'center'
+            },
+            tooltip : {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            color: ['#428bca','#d9534f', '#f0ad4e'],
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+                data: ['通过','失败','错误']
+            },
+            series : [
+                {
+                    name: '测试执行情况结果',
+                    type: 'pie',
+                    radius: ['50%', '70%'],
+                    avoidLabelOverlap: false,
+                    label: {
+                        normal: {
+                            show: false,
+                            position: 'center'
+                        },
+                        emphasis: {
+                            show: true,
+                            textStyle: {
+                                fontSize: '30',
+                                fontWeight: 'bold'
+                            }
+                        }
+                    },
+                    labelLine: {
+                        normal: {
+                            show: false
+                        }
+                    },
+                    data:[
+                        {value:10, name:'通过'},
+                        {value:1, name:'失败'},
+                        {value:1, name:'错误'}
+                    ]
+
+                }
+            ]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
+    
 
 </body>
 </html>
